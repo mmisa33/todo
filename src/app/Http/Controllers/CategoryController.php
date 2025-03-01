@@ -17,11 +17,11 @@ class CategoryController extends Controller
     }
 
     // カテゴリ作成＆データ保存
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category = $request->only(['name']);
         Category::create($category);
 
-        return redirect('/categories');
+        return redirect('/categories')->with('message', 'カテゴリを作成しました');
     }
 }
