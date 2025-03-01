@@ -8,15 +8,22 @@
 <!-- フラッシュメッセージ -->
 <div class="todo__alert">
     <!-- 成功時メッセージ -->
-    <div class="todo__alert--success">Todoを作成しました</div>
+    @if(session('message'))
+    <div class="todo__alert--success">
+        {{ session('message') }}
+    </div>
+    @endif
 
     <!--エラー時メッセージ-->
+    @if ($errors->any())
     <div class="todo__alert--danger">
         <ul>
-            <li>Todoを入力してください</li>
-            <li>エラー2</li>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
         </ul>
     </div>
+    @endif
 </div>
 
 <div class="todo__content">
