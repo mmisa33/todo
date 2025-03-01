@@ -12,14 +12,15 @@ class TodoController extends Controller
     // トップページ表示
     public function index()
     {
-        $todos = Todo::all();
-        return view('index', compact('todos'));
+        $todos = Todo::with('category')->get();
+        $categories = Category::all();
+        return view('index', compact('todos', 'categories'));
     }
 
     // Todo作成＆データ保存
     public function store(TodoRequest $request)
     {
-        $todo = $request->only(['content']);
+        $todo = $request->only(['category_id', 'content']);
         Todo::create($todo);
         return redirect('/')->with('message', 'Todoを作成しました');
     }
