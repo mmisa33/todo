@@ -31,7 +31,7 @@
     <form class="create-form" action="/todos" method="post">
         @csrf
         <div class="create-form__item">
-            <input class="create-form__item-input" type="text" name="content" value="">
+            <input class="create-form__item-input" type="text" name="content">
         </div>
         <div class="create-form__button">
             <button class="create-form__button-submit" type="submit">作成</button>
@@ -48,9 +48,12 @@
             <tr class="todo-table__row">
                 <!-- 更新機能 -->
                 <td class="todo-table__item">
-                    <form class="update-form" action="" method="post">
+                    <form class="update-form" action="/todos/update" method="post">
+                        @method('PATCH')
+                        @csrf
                         <div class="update-form__item">
                             <input class="update-form__item-input" type="text" name="content" value="{{ $todo['content'] }}">
+                            <input type="hidden" name="id" value="{{ $todo['id'] }}">
                         </div>
                         <div class="update-form__button">
                             <button class="update-form__button-submit" type="submit">更新</button>
@@ -59,8 +62,11 @@
                 </td>
                 <!-- 削除機能 -->
                 <td class="todo-table__item">
-                    <form class="delete-form" action="" method="post">
+                    <form class="delete-form" action="/todos/delete" method="post">
+                        @method('DELETE')
+                        @csrf
                         <div class="delete-form__button">
+                            <input type="hidden" name="id" value="{{ $todo['id'] }}">
                             <button class="delete-form__button-submit" type="submit">削除</button>
                         </div>
                     </form>
